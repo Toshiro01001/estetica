@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Ocre Estética | Cuidado para a pele que você já tem</title>
+  <meta name="description" content="Site de demonstração de uma clínica de estética fictícia: catálogo de procedimentos com filtro por área e objetivo, simulador de pacote, galeria de resultados ilustrada e agendamento simulado com escolha de profissional. Feito pela Mil e Uma Linhas!.">
+  <meta name="theme-color" content="#1E1A17">
+  <link rel="canonical" href="https://toshiro01001.github.io/estetica/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <p class="faixa-demo">Demonstração da <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a> com dados fictícios: clínica, profissionais, preços e resultados são inventados.</p>
+
+  <header class="topo">
+    <div class="miolo topo-miolo">
+      <a class="marca" href="#inicio" aria-label="Ocre Estética, início">
+        <svg class="marca-sinal" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <circle cx="16" cy="16" r="14" fill="#C68B59"/>
+          <path d="M9 20c2-7 12-7 14 0" stroke="#1E1A17" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <circle cx="16" cy="12" r="2.6" fill="#1E1A17"/>
+        </svg>
+        <span class="marca-nome">Ocre <em>Estética</em></span>
+      </a>
+      <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="menu">
+        <span class="menu-botao-traco" aria-hidden="true"></span>
+        <span class="menu-botao-texto">Menu</span>
+      </button>
+      <nav class="menu" id="menu" aria-label="Seções do site">
+        <ul>
+          <li><a href="#procedimentos">Procedimentos</a></li>
+          <li><a href="#pacote">Monte seu pacote</a></li>
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#agendar">Agendar</a></li>
+          <li><a href="#como-funciona">Como isto funciona</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ABERTURA -->
+    <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+      <div class="miolo hero-grade">
+        <div class="hero-texto">
+          <p class="hero-chapeu">Clínica de estética facial e corporal em Cuiabá</p>
+          <h1 id="hero-titulo">Cuidado para a pele que você já tem.</h1>
+          <p class="hero-apoio">Aqui você escolhe o procedimento pela área do corpo e pelo que quer sentir, monta um pacote com preço na hora e marca com a profissional certa. Sem promessa de milagre: o que é invasivo começa por uma avaliação.</p>
+          <div class="hero-acoes">
+            <a class="botao botao-principal" href="#procedimentos">Ver procedimentos</a>
+            <a class="botao botao-secundario" href="#agendar">Agendar uma visita</a>
+          </div>
+          <dl class="hero-fatos">
+            <div><dt>Procedimentos</dt><dd>14 faciais e corporais</dd></div>
+            <div><dt>Equipe</dt><dd>3 profissionais habilitadas</dd></div>
+            <div><dt>Horário</dt><dd>Segunda a sábado, 8h às 18h</dd></div>
+          </dl>
+        </div>
+        <figure class="hero-figura">
+          <img class="hero-foto" src="img/hero.webp" width="1600" height="1200" alt="Composição abstrata nas cores da clínica: formas de argila, linho e oliva sobre fundo escuro e quente." fetchpriority="high">
+        </figure>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section class="secao secao-clara" id="procedimentos" aria-labelledby="proc-titulo">
+      <div class="miolo">
+        <div class="secao-cabeca">
+          <h2 id="proc-titulo">Procedimentos</h2>
+          <p class="secao-frase">Escolha uma área do corpo e o que você quer alcançar. A lista abaixo se ajusta na hora; cada cartão mostra preço, duração e se exige avaliação.</p>
+        </div>
+        <form class="filtros" id="filtros" aria-label="Filtrar procedimentos">
+          <fieldset class="filtro-grupo">
+            <legend>Área do corpo</legend>
+            <div class="chips" id="chips-area"></div>
+          </fieldset>
+          <fieldset class="filtro-grupo">
+            <legend>Objetivo</legend>
+            <div class="chips" id="chips-objetivo"></div>
+          </fieldset>
+          <p class="filtro-resumo" id="filtro-resumo" aria-live="polite"></p>
+        </form>
+        <ul class="catalogo" id="catalogo" aria-live="polite"></ul>
+        <p class="aviso-etico"><strong>Sobre resultados:</strong> nenhum procedimento tem resultado garantido. O que descrevemos é o que costuma acontecer; cada pele responde de um jeito. Procedimentos marcados como <em>exige avaliação</em> são injetáveis ou de maior profundidade e só são feitos depois de uma consulta com a profissional habilitada.</p>
+      </div>
+    </section>
+
+    <!-- SIMULADOR DE PACOTE -->
+    <section class="secao secao-escura" id="pacote" aria-labelledby="pacote-titulo">
+      <div class="miolo pacote-grade">
+        <div class="pacote-texto">
+          <h2 id="pacote-titulo">Monte seu pacote</h2>
+          <p class="secao-frase">Junte procedimentos, ajuste o número de sessões e veja o valor com desconto e parcelas. É uma simulação com preços fictícios; nada é cobrado.</p>
+          <ul class="pacote-regras">
+            <li>2 procedimentos diferentes: 5% de desconto.</li>
+            <li>3 ou mais: 10% de desconto.</li>
+            <li>Parcelamento simulado em até 6 vezes, sem juros.</li>
+          </ul>
+        </div>
+        <div class="pacote-painel">
+          <div class="pacote-vazio" id="pacote-vazio">
+            <p>Seu pacote está vazio. Use o botão <strong>Adicionar ao pacote</strong> nos cartões acima.</p>
+            <a class="botao botao-secundario botao-sobre-escuro" href="#procedimentos">Ir aos procedimentos</a>
+          </div>
+          <ul class="pacote-lista" id="pacote-lista" hidden></ul>
+          <div class="pacote-totais" id="pacote-totais" hidden>
+            <dl class="pacote-linhas">
+              <div><dt>Subtotal</dt><dd id="pacote-subtotal">R$ 0</dd></div>
+              <div><dt>Desconto <span id="pacote-desconto-pct"></span></dt><dd id="pacote-desconto">R$ 0</dd></div>
+            </dl>
+            <p class="pacote-total"><span class="pacote-total-rotulo">Total simulado</span> <strong id="pacote-total" aria-live="polite">R$ 0</strong></p>
+            <div class="pacote-parcelas">
+              <label for="pacote-vezes">Parcelar em</label>
+              <select id="pacote-vezes">
+                <option value="1">1 vez</option>
+                <option value="2">2 vezes</option>
+                <option value="3">3 vezes</option>
+                <option value="4">4 vezes</option>
+                <option value="5">5 vezes</option>
+                <option value="6">6 vezes</option>
+              </select>
+              <p class="pacote-parcela" id="pacote-parcela" aria-live="polite"></p>
+            </div>
+            <p class="pacote-tempo" id="pacote-tempo"></p>
+            <div class="pacote-acoes">
+              <a class="botao botao-principal-escuro" href="#agendar" id="pacote-agendar">Agendar a primeira sessão</a>
+              <button class="botao botao-texto" type="button" id="pacote-limpar">Esvaziar pacote</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section class="secao secao-clara" id="resultados" aria-labelledby="res-titulo">
+      <div class="miolo">
+        <div class="secao-cabeca">
+          <h2 id="res-titulo">Resultados, em ilustração</h2>
+          <p class="secao-frase">Arraste o cabo para comparar o antes e o depois. São desenhos que explicam o tipo de mudança que cada cuidado busca, não fotos de pacientes. Resultados variam.</p>
+        </div>
+        <div class="galeria" id="galeria"></div>
+      </div>
+    </section>
+
+    <!-- AGENDAMENTO -->
+    <section class="secao secao-escura" id="agendar" aria-labelledby="ag-titulo">
+      <div class="miolo">
+        <div class="secao-cabeca">
+          <h2 id="ag-titulo">Agendar</h2>
+          <p class="secao-frase">Escolha o procedimento, a profissional, o dia e o horário. O agendamento é simulado: nada é enviado e você vê o resumo na tela.</p>
+        </div>
+        <form class="agenda" id="agenda" novalidate>
+          <div class="agenda-passo">
+            <h3>Procedimento</h3>
+            <label class="rotulo" for="ag-proc">O que você quer fazer</label>
+            <select id="ag-proc" required></select>
+            <p class="agenda-aviso" id="ag-aviso-invasivo" hidden>Este procedimento exige avaliação. A visita será marcada como <strong>avaliação</strong>, sem custo, com a profissional habilitada. O procedimento em si só acontece depois, se for indicado.</p>
+          </div>
+
+          <div class="agenda-passo">
+            <h3>Profissional</h3>
+            <p class="agenda-dica" id="ag-prof-dica">Mostramos só quem faz o procedimento escolhido.</p>
+            <div class="profissionais" id="ag-profissionais" role="radiogroup" aria-label="Escolha a profissional"></div>
+          </div>
+
+          <div class="agenda-passo agenda-passo-cal" id="ag-cal">
+            <h3>Dia e horário</h3>
+            <div class="calendario">
+              <div class="cal-cabeca">
+                <button class="cal-nav" type="button" id="cal-anterior" aria-label="Mês anterior">&#8249;</button>
+                <p class="cal-mes" id="cal-mes" aria-live="polite"></p>
+                <button class="cal-nav" type="button" id="cal-proximo" aria-label="Próximo mês">&#8250;</button>
+              </div>
+              <div class="cal-semana" aria-hidden="true"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+              <div class="cal-grade" id="cal-grade" role="grid" aria-label="Dias do mês"></div>
+              <p class="cal-legenda">Dias com ponto têm horário livre com a profissional escolhida.</p>
+            </div>
+            <div class="horarios">
+              <p class="rotulo" id="horarios-rotulo">Escolha um dia para ver os horários.</p>
+              <div class="horarios-lista" id="horarios-lista" role="radiogroup" aria-labelledby="horarios-rotulo"></div>
+            </div>
+          </div>
+
+          <div class="agenda-passo agenda-passo-dados">
+            <h3>Seus dados</h3>
+            <div class="campos">
+              <div class="campo">
+                <label for="ag-nome">Nome</label>
+                <input id="ag-nome" type="text" autocomplete="name" required minlength="3">
+              </div>
+              <div class="campo">
+                <label for="ag-fone">Telefone com DDD</label>
+                <input id="ag-fone" type="tel" inputmode="numeric" autocomplete="tel" required placeholder="65 99999 0000">
+              </div>
+            </div>
+            <label class="caixa"><input type="checkbox" id="ag-guardar"> Guardar este agendamento neste navegador (fica só no seu aparelho; você pode apagar quando quiser)</label>
+            <p class="agenda-erro" id="ag-erro" role="alert" hidden></p>
+            <button class="botao botao-principal-escuro" type="submit">Confirmar agendamento simulado</button>
+          </div>
+        </form>
+
+        <div class="resumo" id="ag-resumo" hidden tabindex="-1" aria-live="polite">
+          <h3>Agendamento simulado</h3>
+          <dl class="resumo-lista" id="ag-resumo-lista"></dl>
+          <p class="resumo-nota">Em um site de verdade, esta confirmação chegaria por WhatsApp ou e-mail. Aqui, nada foi enviado.</p>
+          <button class="botao botao-texto" type="button" id="ag-novo">Fazer outro agendamento</button>
+        </div>
+
+        <div class="meus" id="meus" hidden>
+          <h3>Agendamentos guardados neste navegador</h3>
+          <ul id="meus-lista"></ul>
+          <button class="botao botao-texto" type="button" id="meus-apagar">Apagar todos</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EQUIPE E ENDEREÇO -->
+    <section class="secao secao-clara" id="clinica" aria-labelledby="clinica-titulo">
+      <div class="miolo clinica-grade">
+        <div>
+          <h2 id="clinica-titulo">A clínica</h2>
+          <p class="secao-frase">Três profissionais, duas cabines, uma sala de avaliação. Ficamos em uma casa reformada no bairro Popular, em Cuiabá, com estacionamento na frente.</p>
+          <address class="endereco">
+            <p><strong>Ocre Estética</strong> (endereço fictício)<br>Rua das Palmeiras, 410, Bairro Popular<br>Cuiabá, MT</p>
+            <p>Telefone fictício: (65) 3000-0000<br>Segunda a sábado, 8h às 18h</p>
+          </address>
+        </div>
+        <ul class="equipe" id="equipe"></ul>
+      </div>
+    </section>
+
+    <!-- COMO ISTO FUNCIONA -->
+    <section class="secao secao-escura" id="como-funciona" aria-labelledby="como-titulo">
+      <div class="miolo como">
+        <h2 id="como-titulo">Como isto funciona</h2>
+        <p class="secao-frase">Este site é uma demonstração da Mil e Uma Linhas! para mostrar a uma clínica de estética o que um site próprio pode fazer. A clínica Ocre não existe.</p>
+        <div class="como-colunas">
+          <div class="como-bloco">
+            <h3>Para quem só quer usar</h3>
+            <p>Você filtra os procedimentos, junta alguns num pacote e vê quanto daria, compara ilustrações de antes e depois e marca uma visita escolhendo a profissional e o horário. Tudo responde na hora e nada sai do seu aparelho.</p>
+          </div>
+          <div class="como-bloco">
+            <h3>Como funciona por dentro</h3>
+            <p>A lista de procedimentos, as profissionais e as agendas estão escritas em um arquivo de dados dentro do próprio site. Quando você clica em um filtro, o navegador refaz a lista a partir desse arquivo. O pacote soma os preços e aplica o desconto na hora. O calendário calcula quais dias cada profissional atende e sorteia, de forma fixa, quais horários já estariam ocupados. Se você marcar "guardar neste navegador", o agendamento fica salvo só no seu aparelho.</p>
+          </div>
+        </div>
+        <details class="tecnico">
+          <summary>Detalhes técnicos</summary>
+          <ul>
+            <li>HTML, CSS e JavaScript puros, sem framework, sem biblioteca, sem CDN. Fontes Fraunces e Instrument Sans servidas localmente (SIL OFL).</li>
+            <li><code>Content-Security-Policy</code> por meta: <code>default-src 'self'</code>, sem script nem estilo inline. O comparador e o calendário mudam estilos via CSSOM (<code>style.setProperty</code>), permitido pela política.</li>
+            <li>Dados em <code>js/dados.js</code> (constantes); lógica em <code>js/app.js</code>. Nenhuma requisição de rede além dos arquivos estáticos: <code>connect-src 'none'</code>.</li>
+            <li>Horários ocupados vêm de um hash determinístico de (profissional, data, horário), então a agenda é igual para todo visitante e não muda ao recarregar.</li>
+            <li><code>localStorage</code> só com a chave <code>ocre-agendamentos</code>, e só se a pessoa marcar a caixa. Botão "Apagar todos" remove a chave.</li>
+            <li>Comparador: duas camadas SVG; a de cima recebe <code>clip-path: inset()</code> controlado por um <code>input type="range"</code>, acessível por teclado e toque.</li>
+            <li>Testes em <code>tests/site.cjs</code> com Playwright: 1280x900, iPhone 13 e 320px; checa rolagem horizontal, texto cortado, console e cada função.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="miolo rodape-miolo">
+      <p class="rodape-marca">Ocre Estética</p>
+      <p>Site de demonstração com dados fictícios, feito pela <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a>. Nenhum serviço é vendido aqui.</p>
+    </div>
+  </footer>
+
+  <script src="js/dados.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
