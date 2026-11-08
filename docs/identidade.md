@@ -63,7 +63,7 @@ Regra de peso: a Fraunces nunca passa de 600; títulos pesados viram "padaria". 
 
 ## Imagem forte
 
-A imagem do hero é uma **fotografia** em contêiner 4:3 com cantos de 20px, à direita do título. Enquanto a foto definitiva não chega, `img/hero.webp` é uma composição abstrata gerada com Pillow nas cores da identidade (formas orgânicas em Ocre, Argila e Areia sobre Fuligem, com grão fino), 1600 por 1200 pixels, sem texto.
+A imagem do hero é uma **fotografia** em contêiner 4:3 com cantos de 20px, à direita do título. A foto atual de `img/hero.webp` foi gerada por IA no Canva (ilustrativa, não é uma obra real), 1440 x 1080px, sem texto.
 
 As ilustrações da galeria de resultados são SVG abstratos (texturas de pele, contorno, luminosidade) e dizem isso na legenda: são ilustrações, não fotos de pacientes.
 

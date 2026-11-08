@@ -45,7 +45,7 @@ Estudo completo em [docs/identidade.md](docs/identidade.md). Resumo:
 - **Paleta:** Fuligem `#1E1A17` (fundo escuro quente), Areia `#E9DCCF` (fundo claro, tom de pele), Linho `#F6EFE7` (cartões e texto sobre escuro), Argila `#8C3A24` (o único destaque forte, um por tela), Oliva `#5C6136` (etiquetas, cabo do comparador), Ocre `#C68B59` (só em ilustração e foto).
 - **Fontes:** Fraunces (títulos, com eixos SOFT e WONK ligados para dar personalidade de barro) e Instrument Sans (texto e interface). Ambas locais, SIL OFL.
 - **Por quê:** estética é cuidado com a pele, e pele tem a cor da terra. Fugi do rosa de perfumaria e do dourado de promessa. A base escura e quente faz a clínica parecer um ateliê, não uma farmácia; a Argila aparece pouco para valer muito.
-- **Imagem forte:** uma fotografia no hero, em contêiner 4:3. A imagem atual em `img/hero.webp` é provisória, gerada em código nas cores da identidade; o prompt para a foto definitiva está em `docs/identidade.md`.
+- **Imagem forte:** uma fotografia no hero, em contêiner 4:3. A imagem em `img/hero.webp` é uma foto gerada por IA no Canva (ilustrativa, não é uma obra real); o prompt usado está em `docs/identidade.md`.
 
 ## Como funciona por dentro
 

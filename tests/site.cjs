@@ -77,8 +77,8 @@ async function testarTela(browser, tela) {
   await page.waitForTimeout(1400);
   await capturar(page, "capa-" + tela.nome);
   await verificarLayout(page, "abertura");
-  const fotoOk = await page.evaluate(() => { const i = document.querySelector(".hero-foto"); return i && i.complete && i.naturalWidth === 1600; });
-  ok(fotoOk, "hero: foto carregada com 1600px de largura");
+  const fotoOk = await page.evaluate(() => { const i = document.querySelector(".hero-foto"); return i && i.complete && i.naturalWidth >= 1200; });
+  ok(fotoOk, "hero: foto carregada e com largura de pelo menos 1200px");
 
   // Função 1: catálogo com filtros
   const totalInicial = await page.locator("#catalogo .proc").count();
