@@ -30,6 +30,69 @@
     return e;
   }
 
+  /* ---------- Movimento: revelação ao rolar, parallax do hero, contagem ---------- */
+  const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const pendentes = new Set();
+  function mostrar(e) {
+    e.classList.add("visivel"); pendentes.delete(e);
+    if (observador) { observador.unobserve(e); }
+    // terminada a entrada, a máscara sai de cena (menos trabalho de pintura e nenhum efeito colateral em capturas)
+    setTimeout(() => e.classList.add("revelado"), 1100 + (parseInt(e.style.getPropertyValue("--atraso"), 10) || 0));
+  }
+  const observador = ("IntersectionObserver" in window) ? new IntersectionObserver((entradas) => {
+    // revela ao entrar na tela ou se já passou dela (um pulo de âncora pode saltar o bloco)
+    entradas.forEach((en) => { if (en.isIntersecting || en.boundingClientRect.bottom < 0) { mostrar(en.target); } });
+  }, { threshold: 0, rootMargin: "0px 0px -12% 0px" }) : null;
+  function revelar(lista) {
+    if (!observador || semMovimento.matches) { return; }
+    lista.forEach((e, i) => {
+      if (e.classList.contains("revelar")) { return; }
+      e.classList.add("revelar");
+      e.style.setProperty("--atraso", (Math.min(i, 8) * 80) + "ms");
+      pendentes.add(e);
+      observador.observe(e);
+    });
+  }
+  let varrendo = false;
+  window.addEventListener("scroll", () => {
+    if (varrendo || pendentes.size === 0) { return; }
+    varrendo = true;
+    requestAnimationFrame(() => {
+      varrendo = false;
+      pendentes.forEach((e) => { if (e.getBoundingClientRect().bottom < 0) { mostrar(e); } });
+    });
+  }, { passive: true });
+  function parallaxHero() {
+    const fig = $("#hero-figura");
+    if (!fig || semMovimento.matches) { return; }
+    let pedido = false;
+    const mover = () => {
+      pedido = false;
+      const y = window.scrollY || 0;
+      fig.style.setProperty("--parallax", (y < window.innerHeight * 1.5 ? Math.round(y * 0.15) : 0) + "px");
+    };
+    window.addEventListener("scroll", () => { if (!pedido) { pedido = true; requestAnimationFrame(mover); } }, { passive: true });
+    mover();
+  }
+  function contarFatos() {
+    const alvo = $("#hero-fatos .conta");
+    if (!alvo) { return; }
+    const fim = Number(alvo.getAttribute("data-conta")) || 0;
+    if (semMovimento.matches || !observador) { alvo.textContent = String(fim); return; }
+    const io = new IntersectionObserver((entradas) => {
+      if (!entradas.some((en) => en.isIntersecting)) { return; }
+      io.disconnect();
+      const inicio = performance.now();
+      const passo = (agora) => {
+        const t = Math.min(1, (agora - inicio) / 900);
+        alvo.textContent = String(Math.round(fim * (1 - Math.pow(1 - t, 3))));
+        if (t < 1) { requestAnimationFrame(passo); }
+      };
+      requestAnimationFrame(passo);
+    }, { threshold: 0.5 });
+    io.observe($("#hero-fatos"));
+  }
+
   /* ---------- Menu ---------- */
   const menuBotao = $("#menu-botao");
   const menu = $("#menu");
@@ -76,9 +139,8 @@
     const add = el("button", {
       type: "button", class: "botao botao-pequeno proc-add" + (noPacote ? " ativo" : ""),
       "aria-pressed": String(noPacote), "data-add": p.id,
-      text: noPacote ? "No pacote" : "Adicionar ao pacote",
       onclick: () => alternarPacote(p.id)
-    });
+    }, [el("span", { class: "proc-add-texto", text: noPacote ? "No pacote" : "Adicionar ao pacote" }), el("span", { class: "proc-seta", "aria-hidden": "true", text: "→" })]);
     const agendar = el("a", { class: "botao botao-pequeno botao-secundario", href: "#agendar", "data-agendar": p.id, text: p.invasivo ? "Marcar avaliação" : "Agendar", onclick: () => preSelecionar(p.id) });
     const etiquetas = el("div", { class: "etiquetas" }, [
       ...p.areas.map((a) => el("span", { class: "etiqueta", text: nomeArea(a) })),
@@ -111,7 +173,20 @@
       lista.append(el("li", { class: "vazio" }, [el("p", { text: "Não temos um procedimento que una essa área e esse objetivo. Tente outra combinação ou fale com a gente na avaliação." })]));
       return;
     }
+    if (["abdomen", "pernas", "bracos"].includes(filtro.area)) {
+      lista.append(el("li", { class: "catalogo-destaque" }, [
+        el("figure", { class: "foto destaque-foto" }, [el("img", { src: "img/procedimentos-corporal.webp", width: "1456", height: "816", loading: "lazy", decoding: "async",
+          alt: "Toalhas de linho enroladas, óleo de massagem em frasco âmbar e pedras de basalto quentes sobre bancada de madeira escura, em luz quente de fim de tarde." })]),
+        el("div", { class: "destaque-texto" }, [
+          el("p", { class: "destaque-chapeu", text: "Cuidado corporal" }),
+          el("h3", { text: "Para " + nomeArea(filtro.area).toLowerCase() + ", sessões de 50 a 70 minutos" }),
+          el("p", { text: "Drenagem, modeladora e radiofrequência corporal são feitas pela Camila, em ciclos de 8 a 10 sessões. A criolipólise exige avaliação antes." })
+        ])
+      ]));
+    }
     itens.forEach((p) => lista.append(cartaoProc(p)));
+    // a revelação ao rolar só vale na primeira montagem; ao filtrar, a lista responde na hora
+    if (!renderCatalogo.pronto) { revelar($$(":scope > li", lista)); renderCatalogo.pronto = true; }
   }
 
   /* ---------- Simulador de pacote ---------- */
@@ -128,7 +203,7 @@
     const b = $(".proc-add", li);
     b.classList.toggle("ativo", ativo);
     b.setAttribute("aria-pressed", String(ativo));
-    b.textContent = ativo ? "No pacote" : "Adicionar ao pacote";
+    $(".proc-add-texto", b).textContent = ativo ? "No pacote" : "Adicionar ao pacote";
   }
   function calcularPacote() {
     let subtotal = 0, minutos = 0, sessoesTotal = 0;
@@ -283,24 +358,35 @@
     return el("article", { class: "comparador", "data-id": item.id }, [
       palco,
       el("h3", { text: item.titulo }),
-      el("p", { class: "comparador-legenda", text: item.legenda })
+      el("details", { class: "comparador-detalhe pergunta" }, [
+        el("summary", {}, [el("span", { text: "O que a ilustração mostra" }), el("span", { class: "mais", "aria-hidden": "true" })]),
+        el("p", { class: "comparador-legenda", text: item.legenda })
+      ])
     ]);
   }
   GALERIA.forEach((item) => $("#galeria").append(comparador(item)));
+  revelar($$("#galeria > *"));
 
   /* ---------- Equipe ---------- */
   const DIAS_CURTOS = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+  function retrato(p, classe) {
+    return el("figure", { class: "foto retrato " + (classe || "") }, [
+      el("img", { src: p.foto, width: "1088", height: "1456", alt: p.fotoAlt, loading: "lazy", decoding: "async" })
+    ]);
+  }
   PROFISSIONAIS.forEach((p) => {
     $("#equipe").append(el("li", { class: "membro" }, [
-      el("div", { class: "prof-sinal " + p.cor, "aria-hidden": "true", text: p.nome[0] }),
-      el("div", {}, [
+      retrato(p, "membro-foto"),
+      el("div", { class: "membro-texto-bloco" }, [
         el("p", { class: "membro-nome", text: p.nome }),
-        el("p", { class: "membro-titulo", text: p.titulo + ". " + p.registro + "." }),
+        el("p", { class: "membro-titulo", text: p.titulo }),
+        el("p", { class: "membro-registro", text: p.registro }),
         el("p", { class: "membro-texto", text: p.texto }),
         el("p", { class: "membro-dias", text: "Atende " + p.dias.map((d) => DIAS_CURTOS[d]).join(", ") })
       ])
     ]));
   });
+  revelar($$("#equipe > li"));
 
   /* ---------- Agendamento ---------- */
   const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
@@ -334,7 +420,7 @@
       input.disabled = !apta;
       input.addEventListener("change", () => { estado.prof = p.id; estado.dia = null; estado.hora = null; renderCalendario(); renderHorarios(); });
       caixa.append(el("label", { class: "prof" }, [input, el("span", { class: "prof-cartao" }, [
-        el("span", { class: "prof-sinal " + p.cor, "aria-hidden": "true", text: p.nome[0] }),
+        el("span", { class: "foto retrato prof-foto" }, [el("img", { src: p.foto, width: "1088", height: "1456", alt: "", loading: "lazy", decoding: "async" })]),
         el("span", {}, [el("span", { class: "prof-nome", text: p.nome }), el("br"), el("span", { class: "prof-titulo", text: p.titulo + ". Atende " + p.dias.map((d) => DIAS_CURTOS[d]).join(", ") + "." }), apta ? null : el("span", { class: "prof-indisponivel", text: " Não faz este procedimento." })])
       ])]));
     });
@@ -468,6 +554,9 @@
   });
 
   /* ---------- Início ---------- */
+  revelar($$(".agenda-passo"));
+  parallaxHero();
+  contarFatos();
   renderCatalogo();
   renderPacote();
   renderProfissionais();

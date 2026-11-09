@@ -1,5 +1,5 @@
 /* Testes do site Ocre Estética com Playwright.
-   Antes de rodar, sirva a pasta do site: python3 -m http.server 8308
+   Antes de rodar, sirva a pasta do site: python3 -m http.server 8308 (ou outra porta, passando URL=http://localhost:PORTA/)
    Depois: node tests/site.cjs
    Variáveis opcionais: URL (padrão http://localhost:8308/), CAPTURAS (pasta para salvar PNGs). */
 const { chromium, devices } = require("playwright");
@@ -35,6 +35,8 @@ async function verificarLayout(page, nome) {
       while (pai && pai !== document.body) {
         const cs = getComputedStyle(pai);
         if ((pai.clientWidth <= 1 && cs.overflow === "hidden") || cs.clipPath !== "none") { oculto = true; break; }
+        // recortado de propósito (faixa em movimento, marcas d'água): o ancestral com overflow hidden cabe na tela
+        if ((cs.overflowX === "hidden" || cs.overflowX === "clip") && pai.getBoundingClientRect().right <= larguraJanela + 1) { oculto = true; break; }
         pai = pai.parentElement;
       }
       if (oculto) { return; }
@@ -159,6 +161,10 @@ async function testarTela(browser, tela) {
   // Função 4: agendamento com escolha de profissional
   await page.locator("[data-agendar='toxina']").click();
   await page.waitForTimeout(500);
+  // os passos da agenda entram com revelação ao rolar; espera os dois primeiros ficarem visíveis antes de clicar
+  await page.locator("#ag-profissionais").scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => Array.from(document.querySelectorAll(".agenda-passo")).slice(0, 2).every((e) => !e.classList.contains("revelar") || e.classList.contains("visivel")), null, { timeout: 5000 });
+  await page.waitForTimeout(1200);
   ok((await page.locator("#ag-proc").inputValue()) === "toxina", "agenda: botão do cartão pré-seleciona o procedimento");
   ok(!(await page.locator("#ag-aviso-invasivo").isHidden()), "agenda: procedimento invasivo mostra aviso de avaliação");
   const desabilitadas = await page.locator("#ag-profissionais input:disabled").count();

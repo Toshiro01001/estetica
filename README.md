@@ -46,6 +46,21 @@ Estudo completo em [docs/identidade.md](docs/identidade.md). Resumo:
 - **Fontes:** Fraunces (títulos, com eixos SOFT e WONK ligados para dar personalidade de barro) e Instrument Sans (texto e interface). Ambas locais, SIL OFL.
 - **Por quê:** estética é cuidado com a pele, e pele tem a cor da terra. Fugi do rosa de perfumaria e do dourado de promessa. A base escura e quente faz a clínica parecer um ateliê, não uma farmácia; a Argila aparece pouco para valer muito.
 - **Imagem forte:** uma fotografia no hero, em contêiner 4:3. A imagem em `img/hero.webp` é uma foto gerada por IA no Canva (ilustrativa, não é uma obra real); o prompt usado está em `docs/identidade.md`.
+- **Design systems da leva final:** as seções escuras seguem o Blade & Co. (foto com fade e parallax, grade de cartões em fio fino com brilho no hover, campos sublinhados, retratos dessaturados, faixa em movimento, marca d'água) e as seções claras seguem o Otto (chips em cápsula, notas flutuantes, acordeão, botão que sobe no hover, revelação ao rolar). A tabela completa está em `docs/identidade.md`.
+
+## Fotos
+
+Todas as fotos do site foram **geradas por IA no Canva** e são **ilustrativas**: não mostram pessoas, pacientes nem lugares reais, e nenhuma tem rosto reconhecível. Ficam em `img/`:
+
+| Arquivo | Proporção | Onde aparece |
+|---|---|---|
+| `hero.webp` | 4:3 | abertura |
+| `procedimentos-facial.webp` | 1:1 | cabeçalho de Procedimentos |
+| `procedimentos-corporal.webp` | 16:9 | cartão de destaque do catálogo quando o filtro de área é Abdômen, Pernas e glúteos ou Braços e mãos |
+| `pacote-ritual.webp` | 4:5 | fundo da coluna de texto de Monte seu pacote |
+| `cabine-procedimento.webp` | 3:2 | cabeçalho de Agendar |
+| `equipe-helena.webp`, `equipe-juliana.webp`, `equipe-camila.webp` | 3:4 | cartões da equipe em A clínica e escolha da profissional em Agendar |
+| `clinica-recepcao.webp` | 4:3 | A clínica, abaixo do endereço |
 
 ## Como funciona por dentro
 
@@ -56,7 +71,8 @@ Os horários "ocupados" não são aleatórios de verdade: o site calcula um núm
 ## Detalhes técnicos
 
 - HTML, CSS e JavaScript puros. Sem framework, sem biblioteca, sem CDN, sem analytics.
-- Arquivos: `index.html` (página única com âncoras), `css/estilo.css`, `js/dados.js`, `js/app.js`, `fonts/` (woff2 e licenças), `img/hero.webp`, `favicon.svg`, `404.html` (caminhos absolutos `/estetica/`), `robots.txt`, `sitemap.xml`, `google20db0e080e71c701.html`.
+- Arquivos: `index.html` (página única com âncoras), `css/estilo.css`, `js/dados.js`, `js/app.js`, `fonts/` (woff2 e licenças), `img/` (nove fotos em webp, listadas acima), `favicon.svg`, `404.html` (caminhos absolutos `/estetica/`), `robots.txt`, `sitemap.xml`, `google20db0e080e71c701.html`.
+- Movimento: revelação ao rolar com `IntersectionObserver` e máscara CSS, parallax do hero com `requestAnimationFrame`, contagem do "14" no hero e faixa em movimento em CSS puro. Tudo desliga com `prefers-reduced-motion: reduce`.
 - `Content-Security-Policy` por meta: `default-src 'self'`, sem script nem estilo inline. Estilos dinâmicos via CSSOM.
 - Acessibilidade: contraste AA verificado (tabela em `docs/identidade.md`), foco visível, filtros e profissionais como `radio` reais com rótulo, calendário com `aria-label` por dia, comparador como `input type="range"` com rótulo, `aria-live` nas listas que mudam, `prefers-reduced-motion` respeitado.
 - `localStorage` só com a chave `ocre-agendamentos` e só se a pessoa marcar a caixa.
@@ -71,13 +87,13 @@ Depois abra http://localhost:8308/ no navegador. Qualquer servidor de arquivos e
 
 ## Testes
 
-Com o servidor acima rodando e o Playwright instalado (`npm i playwright`):
+Com o servidor acima rodando e o Playwright instalado (`npm i playwright`); se usar outra porta, passe `URL=http://localhost:PORTA/`:
 
 ```
 node tests/site.cjs
 ```
 
-O script abre o site em três telas (1280x900, iPhone 13 e 320px) e verifica: rolagem horizontal, elementos fora da borda, texto cortado, console sem erros, foto do hero carregada, filtros do catálogo (contagens e combinação vazia), cálculo do pacote (desconto, sessões, parcelas, remover, esvaziar), comparador (faixa move o corte), agendamento (pré-seleção, aviso de avaliação, profissionais aptas, dias da agenda, horários, validação, resumo, localStorage e apagar), menu do celular e página 404. Variável `CAPTURAS=pasta` salva PNGs de cada etapa.
+O script abre o site em três telas (1280x900, iPhone 13 e 320px) e verifica: rolagem horizontal, elementos fora da borda (ignorando o que é recortado de propósito por um ancestral com `overflow: hidden`, como a faixa em movimento e as marcas d'água), texto cortado, console sem erros, foto do hero carregada, filtros do catálogo (contagens e combinação vazia), cálculo do pacote (desconto, sessões, parcelas, remover, esvaziar), comparador (faixa move o corte), agendamento (pré-seleção, aviso de avaliação, profissionais aptas, dias da agenda, horários, validação, resumo, localStorage e apagar), menu do celular e página 404. Variável `CAPTURAS=pasta` salva PNGs de cada etapa.
 
 Resultado desta versão: tudo certo nas três telas, sem erro de console.
 

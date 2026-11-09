@@ -51,17 +51,20 @@ const PROCEDIMENTOS = [
     texto: "Esfoliação, sérum clareador suave e máscara em áreas que o sol de Mato Grosso castiga mais. Complementa bem qualquer procedimento facial." }
 ];
 
-/* dias: 0 = domingo ... 6 = sábado. */
+/* dias: 0 = domingo ... 6 = sábado. foto: retrato 3:4 gerado por IA no Canva, ilustrativo (sem rosto). */
 const PROFISSIONAIS = [
   { id: "helena", nome: "Helena Barros", titulo: "Esteticista facial", registro: "Registro fictício ET-0101",
     dias: [1, 2, 3, 4, 5], horarios: ["09:00", "10:30", "13:30", "15:00", "16:30"], cor: "ocre",
-    texto: "Cuida das limpezas, hidratações e radiofrequência facial. Doze anos de cabine e paciência para ouvir." },
+    texto: "Cuida das limpezas, hidratações e radiofrequência facial. Doze anos de cabine e paciência para ouvir.",
+    foto: "img/equipe-helena.webp", fotoAlt: "Esteticista de jaleco cor de linho vista de costas e de perfil, preparando potes de cerâmica em uma cabine com luz quente." },
   { id: "juliana", nome: "Juliana Tavares", titulo: "Biomédica esteta", registro: "Registro fictício BM-2020",
     dias: [2, 4, 6], horarios: ["08:30", "10:00", "11:30", "14:00", "15:30"], cor: "argila",
-    texto: "Responsável pelos procedimentos injetáveis e pelos peelings. Toda primeira visita com ela é uma avaliação." },
+    texto: "Responsável pelos procedimentos injetáveis e pelos peelings. Toda primeira visita com ela é uma avaliação.",
+    foto: "img/equipe-juliana.webp", fotoAlt: "Profissional de jaleco escuro vista de perfil, com luvas, ajustando um aparelho de radiofrequência em uma sala de avaliação clara." },
   { id: "camila", nome: "Camila Ferraz", titulo: "Esteticista corporal", registro: "Registro fictício ET-0344",
     dias: [1, 3, 5, 6], horarios: ["08:00", "09:30", "11:00", "14:30", "16:00", "17:30"], cor: "oliva",
-    texto: "Drenagem, modeladora, radiofrequência corporal e criolipólise. Especialista em pós-operatório." }
+    texto: "Drenagem, modeladora, radiofrequência corporal e criolipólise. Especialista em pós-operatório.",
+    foto: "img/equipe-camila.webp", fotoAlt: "Esteticista corporal de costas dobrando toalhas de linho sobre uma maca forrada, com pedras quentes em uma tigela de cerâmica ao lado." }
 ];
 
 /* Galeria: ilustrações abstratas, não fotos. Cada item tem o desenho do "antes" e do "depois". */

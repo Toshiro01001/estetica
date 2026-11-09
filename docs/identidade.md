@@ -58,7 +58,7 @@ Regra de peso: a Fraunces nunca passa de 600; títulos pesados viram "padaria". 
 - Texto alinhado à esquerda em todo o site. Nada centralizado, exceto o conteúdo de botões.
 - Cada seção abre com h2 e uma frase que diz o que é e o que fazer.
 - Cantos: 20px nos cartões grandes e na foto do hero, 12px em cartões pequenos, 8px em campos, 999px só em etiquetas e nos botões de filtro.
-- Sombras: nenhuma. A separação é feita por borda de 1px (Fuligem a 15% sobre Areia, Linho a 15% sobre Fuligem) ou por mudança de fundo.
+- Sombras: nenhuma, com uma exceção: as notas flutuantes (ver "Design systems aplicados"). A separação é feita por borda de 1px (Fuligem a 15% sobre Areia, Linho a 15% sobre Fuligem) ou por mudança de fundo.
 - Celular primeiro: uma coluna a partir de 320px, duas colunas a partir de 720px, grade completa a partir de 1024px.
 
 ## Imagem forte
@@ -77,7 +77,7 @@ Prompt em português para gerar no Canva:
 
 ## Movimento
 
-- Um só momento orquestrado na abertura: o título do hero sobe 12px e aparece, e a foto surge com leve escala (1,03 para 1,0) em 700ms, uma após a outra.
+- Um só momento orquestrado na abertura: o título do hero sobe 12px e aparece, e a foto surge de escala 1,2 para 1,05 em 1,8s (heroImgReveal), uma após a outra. Ao rolar, a foto do hero desloca 15% da rolagem (parallax) e os blocos entram revelados de cima para baixo.
 - Respostas a ações: filtros do catálogo mudam de cor em 150ms; cartões adicionados ao pacote ganham borda Oliva; o cabo do comparador acompanha o dedo ou o mouse sem atraso; o total do pacote faz um pulso curto de opacidade ao mudar.
 - Com `prefers-reduced-motion: reduce`, nenhuma animação roda: o hero já aparece pronto e as transições viram instantâneas.
 
@@ -87,6 +87,49 @@ Prompt em português para gerar no Canva:
 - Todo procedimento marcado como invasivo ou de maior risco (preenchimento, toxina botulínica, peelings profundos, criolipólise) traz o aviso de que exige avaliação prévia com profissional habilitada, e no agendamento só pode ser marcado como "avaliação".
 - A galeria diz que são ilustrações, não fotos de pacientes, e que resultados variam.
 - Preços são fictícios e o parcelamento é apenas uma simulação.
+
+## Design systems aplicados (leva final)
+
+Dupla escolhida no catálogo da Mil e Uma Linhas!: **Blade & Co.** (`barbershop-landing-51-design-system`, tema escuro) e **Otto** (`otto-cinematic-9-design-system`, tema claro). A paleta não mudou: o dourado do Blade virou Ocre como decoração e o amarelo do Otto virou Oliva como estado positivo. A Argila continua uma por tela.
+
+**Como misturamos.** As seções em Fuligem (hero, faixa, pacote, agendar, como funciona, rodapé) seguem o Blade & Co.: foto com fade lateral para o fundo e parallax, grade de serviços em hairline Ocre a 15% com varredura de brilho no hover, campos sublinhados, retratos 3:4 dessaturados, faixa marquee e marca d'água tipográfica a 4%. As seções em Areia (procedimentos, resultados, a clínica) seguem o Otto: chips em cápsula de 50px, notas flutuantes em Linho com ponto Oliva, acordeão com "mais" que gira 45 graus, botão que sobe 3px no hover e revelação de cima para baixo ao rolar.
+
+**Componentes e onde estão:**
+
+| Padrão | Sistema | Onde |
+|---|---|---|
+| Hero photo fade + parallax (translateY de 15% da rolagem, heroImgReveal 1,8s) | Blade & Co. | `figure.hero-figura` em `#inicio` |
+| Stats row com divisores Ocre a 15% e contagem de 0 a 14 em 900ms | Blade & Co. | `dl.hero-fatos` |
+| Marquee band (duas metades idênticas, 30s linear, pontos Ocre de 4px) | Blade & Co. | `div.faixa-marquee` entre o hero e Procedimentos |
+| Tile on hairline grid (calha de 1px Ocre a 15%, hover sobe 5px com brilho a 135 graus e seta que desliza) | Blade & Co. | `ul.catalogo li.proc` em `#procedimentos` |
+| Team card (retrato 3:4 a 50% de cinza, cor e escala 1,05 no hover, título em Argila) | Blade & Co. | `ul.equipe li` em `#clinica` e `div.profissionais` em `#agendar` (selecionada com borda Oliva) |
+| Underline field (sem caixa, linha inferior Linho a 20% que vira Ocre claro no foco) | Blade & Co. | `#ag-proc`, `#ag-nome`, `#ag-fone` e `#pacote-vezes` |
+| Watermark backdrop ("OCRE" em Fraunces a 22vw, rgba(198,139,89,.04)) | Blade & Co. | `#pacote` e `#agendar` |
+| Tabs em cápsula (11px 22px, raio 50px, selecionado preenche Fuligem) | Otto | `#chips-area` e `#chips-objetivo` |
+| Float notes (Linho, raio 12px, ponto Oliva de 19px com check, sombra 0 8px 30px rgba(140,58,36,.07), balanço de 3px) | Otto | `p.aviso-etico` e `#ag-aviso-invasivo` |
+| Question list (details com hairline, summary 600, "mais" de 22px que gira 45 graus) | Otto | `#como-funciona` (dois blocos e detalhes técnicos) e legenda de cada comparador em `#resultados` |
+| Hero actions (botão que sobe 3px com base 0 7px 0; link com círculo de 42px e seta que anda 3px) | Otto | `a.botao-principal`, `a.botao-link` no hero; `.pacote-acoes` |
+| Scroll reveal (máscara de cima para baixo + subida de 32px em 1s, 80ms entre irmãos; nasce pronto com reduced-motion) | Otto | cartões do catálogo (primeira montagem), comparadores, equipe e passos da agenda |
+| Closing com marca d'água rotacionada e ticks | Otto | `#clinica` e `footer.rodape` (marca a 420px, 20 graus, 8%; linha "Seg a Sáb" com seis ticks "8h às 18h") |
+
+**Sobre a sombra.** As notas flutuantes são a única exceção à regra "sombras: nenhuma": são notas soltas, não cartões, e a sombra é quente e quase invisível.
+
+**Exceção técnica.** A revelação ao rolar usa `mask-size` em vez de `clip-path` porque o Chrome leva o `clip-path` do próprio elemento em conta no IntersectionObserver, e um bloco totalmente recortado nunca "entra" na tela.
+
+## Fotos (geradas por IA no Canva, ilustrativas)
+
+Todas em webp, em `img/`, sem texto, sem rosto reconhecível e sem paciente. São imagens geradas por IA no Canva, ilustrativas; não retratam pessoas nem lugares reais.
+
+| Arquivo | Proporção | Onde | Cor média (fundo enquanto carrega) |
+|---|---|---|---|
+| `equipe-helena.webp` | 3:4 (1088 x 1456) | cartão da Helena em A clínica e no agendamento | `#65452C` |
+| `equipe-juliana.webp` | 3:4 (1088 x 1456) | cartão da Juliana | `#5C432C` |
+| `equipe-camila.webp` | 3:4 (1088 x 1456) | cartão da Camila | `#7A5535` |
+| `clinica-recepcao.webp` | 4:3 (1456 x 1088) | A clínica, abaixo do endereço | `#6A431E` |
+| `cabine-procedimento.webp` | 3:2 (1456 x 970) | cabeçalho de Agendar, com fade para o fundo | `#382211` |
+| `procedimentos-facial.webp` | 1:1 (1024 x 1024) | cabeçalho de Procedimentos | `#483621` |
+| `procedimentos-corporal.webp` | 16:9 (1456 x 816) | cartão de destaque do catálogo quando o filtro é Abdômen, Pernas ou Braços | `#7F4B27` |
+| `pacote-ritual.webp` | 4:5 (1088 x 1360) | fundo da coluna de texto de Monte seu pacote | `#3D2513` |
 
 ## O que evitamos de propósito
 

@@ -55,26 +55,39 @@
           <p class="hero-apoio">Aqui você escolhe o procedimento pela área do corpo e pelo que quer sentir, monta um pacote com preço na hora e marca com a profissional certa. Sem promessa de milagre: o que é invasivo começa por uma avaliação.</p>
           <div class="hero-acoes">
             <a class="botao botao-principal" href="#procedimentos">Ver procedimentos</a>
-            <a class="botao botao-secundario" href="#agendar">Agendar uma visita</a>
+            <a class="botao botao-secundario botao-link" href="#agendar">Agendar uma visita <span class="botao-circulo" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
           </div>
-          <dl class="hero-fatos">
-            <div><dt>Procedimentos</dt><dd>14 faciais e corporais</dd></div>
-            <div><dt>Equipe</dt><dd>3 profissionais habilitadas</dd></div>
-            <div><dt>Horário</dt><dd>Segunda a sábado, 8h às 18h</dd></div>
+          <dl class="hero-fatos" id="hero-fatos">
+            <div><dt>Procedimentos faciais e corporais</dt><dd><span class="conta" data-conta="14">14</span></dd></div>
+            <div><dt>Profissionais habilitadas</dt><dd>3</dd></div>
+            <div><dt>Segunda a sábado</dt><dd>8h às 18h</dd></div>
           </dl>
         </div>
-        <figure class="hero-figura">
+        <figure class="hero-figura" id="hero-figura">
           <img class="hero-foto" src="img/hero.webp" width="1440" height="1080" alt="Duas peças de argila, uma tigela com creme claro e um pote, sobre tecido cor de pêssego, com folhas de eucalipto e uma pedra verde de massagem facial. Imagem gerada por IA, ilustrativa." fetchpriority="high">
         </figure>
       </div>
     </section>
 
+    <!-- FAIXA EM MOVIMENTO -->
+    <div class="faixa-marquee" aria-hidden="true">
+      <div class="marquee-trilho">
+        <span>Limpeza de pele</span><span>Drenagem</span><span>Radiofrequência</span><span>Avaliação antes de injetáveis</span><span>Pedras quentes</span><span>Hidratação intensiva</span><span>Peeling superficial</span>
+        <span>Limpeza de pele</span><span>Drenagem</span><span>Radiofrequência</span><span>Avaliação antes de injetáveis</span><span>Pedras quentes</span><span>Hidratação intensiva</span><span>Peeling superficial</span>
+      </div>
+    </div>
+
     <!-- CATÁLOGO -->
     <section class="secao secao-clara" id="procedimentos" aria-labelledby="proc-titulo">
       <div class="miolo">
-        <div class="secao-cabeca">
-          <h2 id="proc-titulo">Procedimentos</h2>
-          <p class="secao-frase">Escolha uma área do corpo e o que você quer alcançar. A lista abaixo se ajusta na hora; cada cartão mostra preço, duração e se exige avaliação.</p>
+        <div class="proc-cabeca">
+          <div class="secao-cabeca">
+            <h2 id="proc-titulo">Procedimentos</h2>
+            <p class="secao-frase">Escolha uma área do corpo e o que você quer alcançar. A lista abaixo se ajusta na hora; cada cartão mostra preço, duração e se exige avaliação.</p>
+          </div>
+          <figure class="proc-foto foto">
+            <img src="img/procedimentos-facial.webp" width="1024" height="1024" alt="Natureza-morta de cuidado facial: pedra de gua sha em quartzo verde-oliva, pincel de máscara, pote de creme cor de linho e folha de eucalipto sobre pedra escura." loading="lazy" decoding="async">
+          </figure>
         </div>
         <form class="filtros" id="filtros" aria-label="Filtrar procedimentos">
           <fieldset class="filtro-grupo">
@@ -93,16 +106,22 @@
     </section>
 
     <!-- SIMULADOR DE PACOTE -->
-    <section class="secao secao-escura" id="pacote" aria-labelledby="pacote-titulo">
+    <section class="secao secao-escura com-marca-dagua" id="pacote" aria-labelledby="pacote-titulo">
+      <span class="marca-dagua" aria-hidden="true">OCRE</span>
       <div class="miolo pacote-grade">
         <div class="pacote-texto">
-          <h2 id="pacote-titulo">Monte seu pacote</h2>
-          <p class="secao-frase">Junte procedimentos, ajuste o número de sessões e veja o valor com desconto e parcelas. É uma simulação com preços fictícios; nada é cobrado.</p>
-          <ul class="pacote-regras">
-            <li>2 procedimentos diferentes: 5% de desconto.</li>
-            <li>3 ou mais: 10% de desconto.</li>
-            <li>Parcelamento simulado em até 6 vezes, sem juros.</li>
-          </ul>
+          <figure class="pacote-foto foto">
+            <img src="img/pacote-ritual.webp" width="1088" height="1360" alt="Três potes de cerâmica cor de argila de tamanhos diferentes enfileirados sobre pedra escura, com uma vela acesa ao fundo em luz baixa." loading="lazy" decoding="async">
+          </figure>
+          <div class="pacote-texto-miolo">
+            <h2 id="pacote-titulo">Monte seu pacote</h2>
+            <p class="secao-frase">Junte procedimentos, ajuste o número de sessões e veja o valor com desconto e parcelas. É uma simulação com preços fictícios; nada é cobrado.</p>
+            <ul class="pacote-regras">
+              <li>2 procedimentos diferentes: 5% de desconto.</li>
+              <li>3 ou mais: 10% de desconto.</li>
+              <li>Parcelamento simulado em até 6 vezes, sem juros.</li>
+            </ul>
+          </div>
         </div>
         <div class="pacote-painel">
           <div class="pacote-vazio" id="pacote-vazio">
@@ -150,11 +169,17 @@
     </section>
 
     <!-- AGENDAMENTO -->
-    <section class="secao secao-escura" id="agendar" aria-labelledby="ag-titulo">
+    <section class="secao secao-escura com-marca-dagua" id="agendar" aria-labelledby="ag-titulo">
+      <span class="marca-dagua" aria-hidden="true">OCRE</span>
       <div class="miolo">
-        <div class="secao-cabeca">
-          <h2 id="ag-titulo">Agendar</h2>
-          <p class="secao-frase">Escolha o procedimento, a profissional, o dia e o horário. O agendamento é simulado: nada é enviado e você vê o resumo na tela.</p>
+        <div class="agenda-cabeca">
+          <div class="secao-cabeca">
+            <h2 id="ag-titulo">Agendar</h2>
+            <p class="secao-frase">Escolha o procedimento, a profissional, o dia e o horário. O agendamento é simulado: nada é enviado e você vê o resumo na tela.</p>
+          </div>
+          <figure class="agenda-foto foto">
+            <img src="img/cabine-procedimento.webp" width="1456" height="970" alt="Cabine de procedimento à meia-luz: maca com lençol de linho, abajur aceso, toalhas dobradas e um carrinho com potes de cerâmica escura." loading="lazy" decoding="async">
+          </figure>
         </div>
         <form class="agenda" id="agenda" novalidate>
           <div class="agenda-passo">
@@ -222,15 +247,19 @@
     </section>
 
     <!-- EQUIPE E ENDEREÇO -->
-    <section class="secao secao-clara" id="clinica" aria-labelledby="clinica-titulo">
+    <section class="secao secao-clara fechamento" id="clinica" aria-labelledby="clinica-titulo">
+      <svg class="marca-fechamento" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="16" r="14" fill="currentColor"/><path d="M9 20c2-7 12-7 14 0" stroke="#E9DCCF" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="16" cy="12" r="2.6" fill="#E9DCCF"/></svg>
       <div class="miolo clinica-grade">
-        <div>
+        <div class="clinica-texto">
           <h2 id="clinica-titulo">A clínica</h2>
           <p class="secao-frase">Três profissionais, duas cabines, uma sala de avaliação. Ficamos em uma casa reformada no bairro Popular, em Cuiabá, com estacionamento na frente.</p>
           <address class="endereco">
             <p><strong>Ocre Estética</strong> (endereço fictício)<br>Rua das Palmeiras, 410, Bairro Popular<br>Cuiabá, MT</p>
             <p>Telefone fictício: (65) 3000-0000<br>Segunda a sábado, 8h às 18h</p>
           </address>
+          <figure class="clinica-foto foto">
+            <img src="img/clinica-recepcao.webp" width="1456" height="1088" alt="Recepção de clínica em casa reformada: balcão de madeira escura, parede cor de areia, banco de linho, vasos de barro com plantas e luz de fim de tarde entrando pela porta." loading="lazy" decoding="async">
+          </figure>
         </div>
         <ul class="equipe" id="equipe"></ul>
       </div>
@@ -241,18 +270,18 @@
       <div class="miolo como">
         <h2 id="como-titulo">Como isto funciona</h2>
         <p class="secao-frase">Este site é uma demonstração da Mil e Uma Linhas! para mostrar a uma clínica de estética o que um site próprio pode fazer. A clínica Ocre não existe.</p>
-        <div class="como-colunas">
-          <div class="como-bloco">
-            <h3>Para quem só quer usar</h3>
+        <div class="como-colunas perguntas">
+          <details class="pergunta como-bloco" open>
+            <summary><h3>Para quem só quer usar</h3><span class="mais" aria-hidden="true"></span></summary>
             <p>Você filtra os procedimentos, junta alguns num pacote e vê quanto daria, compara ilustrações de antes e depois e marca uma visita escolhendo a profissional e o horário. Tudo responde na hora e nada sai do seu aparelho.</p>
-          </div>
-          <div class="como-bloco">
-            <h3>Como funciona por dentro</h3>
+          </details>
+          <details class="pergunta como-bloco">
+            <summary><h3>Como funciona por dentro</h3><span class="mais" aria-hidden="true"></span></summary>
             <p>A lista de procedimentos, as profissionais e as agendas estão escritas em um arquivo de dados dentro do próprio site. Quando você clica em um filtro, o navegador refaz a lista a partir desse arquivo. O pacote soma os preços e aplica o desconto na hora. O calendário calcula quais dias cada profissional atende e sorteia, de forma fixa, quais horários já estariam ocupados. Se você marcar "guardar neste navegador", o agendamento fica salvo só no seu aparelho.</p>
-          </div>
+          </details>
         </div>
-        <details class="tecnico">
-          <summary>Detalhes técnicos</summary>
+        <details class="tecnico pergunta">
+          <summary><h3>Detalhes técnicos</h3><span class="mais" aria-hidden="true"></span></summary>
           <ul>
             <li>HTML, CSS e JavaScript puros, sem framework, sem biblioteca, sem CDN. Fontes Fraunces e Instrument Sans servidas localmente (SIL OFL).</li>
             <li><code>Content-Security-Policy</code> por meta: <code>default-src 'self'</code>, sem script nem estilo inline. O comparador e o calendário mudam estilos via CSSOM (<code>style.setProperty</code>), permitido pela política.</li>
@@ -267,8 +296,14 @@
     </section>
   </main>
 
-  <footer class="rodape">
+  <footer class="rodape fechamento">
+    <svg class="marca-fechamento" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="16" r="14" fill="currentColor"/><path d="M9 20c2-7 12-7 14 0" stroke="#1E1A17" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="16" cy="12" r="2.6" fill="#1E1A17"/></svg>
     <div class="miolo rodape-miolo">
+      <div class="rodape-ticks">
+        <span>Seg a Sáb</span>
+        <span class="ticks" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b><b></b></span>
+        <span>8h às 18h</span>
+      </div>
       <p class="rodape-marca">Ocre Estética</p>
       <p>Site de demonstração com dados fictícios, feito pela <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a>. Nenhum serviço é vendido aqui.</p>
     </div>
